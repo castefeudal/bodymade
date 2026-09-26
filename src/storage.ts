@@ -1,0 +1,11 @@
+import {emptyData,type AppData} from './domain';
+
+const DB_NAME='bodymade-local';
+const DB_VERSION=2;
+const TABLES=['profile','settings','workouts','weights','meals','recovery'] as const;
+type Table=typeof TABLES[number];
+function openDb():Promise<IDBDatabase>{return new Promise((resolve,reject)=>{const req=indexedDB.open(DB_NAME,DB_VERSION);req.onupgradeneeded=()=>{const db=req.result;for(const table of TABLES)if(!db.objectStoreNames.contains(table))db.createObjectStore(table,{keyPath:'id'});};req.onsuccess=()=>resolve(req.result);req.onerror=()=>reject(req.error);});}
+function req<T>(request:IDBRequest<T>){return new Promise<T>((resolve,reject)=>{request.onsuccess=()=>resolve(request.result);request.onerror=()=>reject(request.error);});}
+export async function loadData():Promise<AppData>{const db=await openDb();const tx=db.transaction([...TABLES],'readonly');const values=await Promise.all(TABLES.map(t=>req(tx.objectStore(t).getAll())));db.close();const pick=(index:number)=>values[index] as Record<string,unknown>[];return {profile:(pick(0)[0] as AppData['profile']|undefined)??emptyData.profile,settings:(pick(1)[0] as AppData['settings']|undefined)??emptyData.settings,workouts:pick(2) as AppData['workouts'],weights:pick(3) as AppData['weights'],meals:pick(4) as AppData['meals'],recovery:pick(5) as AppData['recovery']};}
+export async function saveData(data:AppData){const db=await openDb();const tx=db.transaction([...TABLES],'readwrite');const put=(table:Table,rows:unknown[])=>{const store=tx.objectStore(table);store.clear();for(const row of rows)store.put(row);};put('profile',[{id:'profile',...data.profile}]);put('settings',[{id:'settings',...data.settings}]);put('workouts',data.workouts);put('weights',data.weights);put('meals',data.meals);put('recovery',data.recovery);await new Promise<void>((resolve,reject)=>{tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);tx.onabort=()=>reject(tx.error);});db.close();}
+export async function clearData(){const db=await openDb();const tx=db.transaction([...TABLES],'readwrite');TABLES.forEach(t=>tx.objectStore(t).clear());await new Promise<void>((resolve,reject)=>{tx.oncomplete=()=>resolve();tx.onerror=()=>reject(tx.error);});db.close();}

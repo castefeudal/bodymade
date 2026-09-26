@@ -1,0 +1,10 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-09-27",
+  "records": [
+    {"id":"app-exercise-starter","source":"BODYMADE original starter exercise metadata","license":"Project repository license","sourceUrl":null,"importedFields":["name","muscle","equipment","sets","repRange","rest","cue"],"attribution":"Original BODYMADE text and metadata","lastReviewed":"2026-09-27","mediaRightsStatus":"No media included"},
+    {"id":"lucide-react","source":"Lucide React","license":"ISC","sourceUrl":"https://github.com/lucide-icons/lucide","importedFields":["icon components from installed dependency"],"attribution":"Lucide contributors","lastReviewed":"2026-09-27","mediaRightsStatus":"Not applicable; vector icons rendered from package"},
+    {"id":"product-research","source":"Public product documentation listed in SOURCES.md","license":"Proprietary product information; reference only","sourceUrl":"https://www.hevyapp.com/features/","importedFields":[],"attribution":"Source links retained in SOURCES.md","lastReviewed":"2026-09-27","mediaRightsStatus":"No product copy, code, screenshots or media imported"},
+    {"id":"exercise-datasets-reviewed","source":"Public repositories listed in SOURCES.md","license":"Mixed; includes AGPL, GPL and separate dataset/media terms","sourceUrl":"https://github.com/yuhonas/free-exercise-db","importedFields":[],"attribution":"Reference only; no records or media imported","lastReviewed":"2026-09-27","mediaRightsStatus":"Not imported; rights not cleared"}
+  ]
+}

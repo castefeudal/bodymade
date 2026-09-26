@@ -1,1 +1,1 @@
-{"name":"BODYMADE","short_name":"BODYMADE","start_url":"/bodymade/","display":"standalone","background_color":"#101111","theme_color":"#101111","icons":[]}
+{"id":"/bodymade/","name":"BODYMADE — Health & Performance OS","short_name":"BODYMADE","description":"Локальная система тренировок, питания и восстановления","start_url":"/bodymade/","scope":"/bodymade/","display":"standalone","background_color":"#101211","theme_color":"#101211","lang":"ru","icons":[{"src":"/bodymade/icon.svg","sizes":"any","type":"image/svg+xml","purpose":"any maskable"}]}

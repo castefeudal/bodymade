@@ -1,10 +1,14 @@
 # QA report
 
-Measured on 2026-09-25 in the local workspace:
+Executed locally on 2026-09-27 against the production Vite build.
 
-- `npm run typecheck`: passed
-- `npm test`: 1 file / 5 tests passed (progression and trend)
-- `npm run build`: passed with 77.94 kB gzip JavaScript and 4.34 kB gzip CSS
-- Production base path: `/bodymade/`
+- `npm run lint`: passed with zero warnings.
+- `npm run typecheck`: passed (TypeScript strict mode).
+- `npm test`: passed, 1 file / 8 unit tests.
+- `npm run build`: passed. Output: 266.64 kB JS (82.85 kB gzip) and 13.74 kB CSS (3.69 kB gzip).
+- `npm run test:e2e`: passed, 6 Playwright browser tests. Covered workout set logging/reload/resume/finish/progress, nutrition and recovery entry, export, validated import preview/merge, offline reload, and widths 320, 375, 390, 430, 768, 1024, 1280, 1440, and 1920 pixels.
+- axe-core: zero reported violations on Today and each of the eight main views in the included default-state scan.
+- `npm install` dependency audit: zero vulnerabilities reported.
+- Production base path and PWA scope: `/bodymade/`. Offline shell reload passed after initial online install.
 
-Playwright, axe and Lighthouse are not yet wired in this first implementation slice; no scores are claimed here.
+Not tested: Lighthouse/Core Web Vitals, real mobile devices, assistive-technology/manual keyboard review, every locale, large import files, or the complete end-to-end product requirements in the brief. The axe scan covers automated rules only and is not a WCAG conformance certification. GitHub Actions deployment has not yet run for this source revision.

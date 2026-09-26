@@ -1,11 +1,16 @@
 # Data model
 
-The initial model contains:
+IndexedDB database: `bodymade-local`, schema version 2. Records use stable string IDs. Dates are stored as ISO date strings; timestamps are ISO 8601 strings.
 
-- `AppState`: onboarding state, user mode, active workout flag, completed session count, logged sets and body-weight readings.
-- `Exercise`: stable id, localized-ready name, muscle, movement group, equipment, target sets/reps, previous performance and coaching cue.
-- `LoggedSet`: exercise id, ordinal set, load, reps and completion state.
+| Store | Record fields | Notes |
+| --- | --- | --- |
+| `profile` | `id`, `name`, `goal`, `units` | One local profile record. |
+| `settings` | `id`, `theme`, `locale` | One local preference record. |
+| `workouts` | `id`, `startedAt`, `endedAt?`, `sets[]` | Active sessions stay unfinished until the user completes them. |
+| `weights` | `id`, `date`, `kg` | Raw user weigh-ins; trend is calculated from multiple values. |
+| `meals` | `id`, `date`, `name`, `kcal`, `protein`, `carbs`, `fat` | User-entered nutrient estimates; no food database is bundled. |
+| `recovery` | `id`, `date`, `sleepHours`, `energy`, `soreness`, `stress`, `note` | Manual self-report; no readiness score is inferred. |
 
-The source exercise dataset is retained as an optional lazy asset under `public/data/exercises-compact.json`; its multilingual content and attribution are not on the critical Today path.
+JSON export envelope uses `schemaVersion: 1`; import validates the envelope and primitive fields, previews the number of records, then allows merge by ID or full replacement. Workouts contain logged sets with exercise ID/name, load, reps, RIR, and timestamp. No health record is sent to a server.
 
-Future migrations must be additive and preserve `LoggedSet` records. Corrupt imports should be rejected before replacing local state.
+This first slice does not yet model programs/mesocycles, foods/sources/recipes, body measurements, imported wearable records, labs, or recommendation history as separate normalized entities.
