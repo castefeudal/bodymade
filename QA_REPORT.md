@@ -10,5 +10,6 @@ Executed locally on 2026-09-27 against the production Vite build.
 - axe-core: zero reported violations on Today and each of the eight main views in the included default-state scan.
 - `npm install` dependency audit: zero vulnerabilities reported.
 - Production base path and PWA scope: `/bodymade/`. Offline shell reload passed after initial online install.
+- GitHub Actions Pages run for app commit `6f969b64f16cbb809d3438deb4ea004a60465b34`: all checks and deployment passed. Production URL loaded in Chromium with no console/page errors; horizontal overflow check passed at 390×844 and 1440×900.
 
-Not tested: Lighthouse/Core Web Vitals, real mobile devices, assistive-technology/manual keyboard review, every locale, large import files, or the complete end-to-end product requirements in the brief. The axe scan covers automated rules only and is not a WCAG conformance certification. GitHub Actions deployment has not yet run for this source revision.
+Not tested: Lighthouse/Core Web Vitals, real mobile devices, assistive-technology/manual keyboard review, every locale, large import files, or the complete end-to-end product requirements in the brief. The axe scan covers automated rules only and is not a WCAG conformance certification.
